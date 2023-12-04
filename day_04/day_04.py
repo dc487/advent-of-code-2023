@@ -1,4 +1,3 @@
-from collections import Counter
 import pathlib
 import re
 
@@ -28,11 +27,11 @@ if __name__ == "__main__":
 
     print(sum([x.calculate_score() for x in cards]))
 
-    counts = Counter([x.card_number for x in cards])
+    counts = [1 for _ in cards]
     for card in cards:
         cards_won = card.get_cards_won()
-        for i in range(counts[card.card_number]):
-            counts.update(cards_won)
+        for winner in cards_won:
+            counts[winner - 1] += counts[card.card_number - 1]
 
-    print(sum(counts.values()))
+    print(sum(counts))
 
